@@ -41,6 +41,7 @@
     ];
 
     brews = [
+      "herdr"
       "mongodb-community"
       "nvm"
       "redis"
@@ -51,6 +52,7 @@
       "android-studio"
       "another-redis-desktop-manager"
       "temurin@17"
+      "claude-code"
     ];
   };
 }
