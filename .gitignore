@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Nix build output
+result
+result-*
+
+# direnv
+.direnv/
+.envrc.local
+
+# Editor/IDE
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
