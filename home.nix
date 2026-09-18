@@ -44,8 +44,8 @@ in
       push = "git push";
       pull = "git pull";
       status = "git status";
-      cc = "claude --dangerously-skip-permissions";
-      co = "codex --full-auto";
+      cc = "claude"; 
+      co = "codex";
     };
   };
 
