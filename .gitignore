@@ -16,3 +16,6 @@ result-*
 
 # Logs
 *.log
+
+# herdr runtime state
+home/.config/herdr/session.json
