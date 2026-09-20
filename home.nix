@@ -37,6 +37,17 @@ in
     syntaxHighlighting.enable = true;         # commands turn green when valid
     initContent = ''
       bindkey '^f' autosuggest-accept
+
+      # nvm's node keeps losing to Homebrew's in PATH: nix-darwin's system
+      # /etc/zshrc re-runs `brew shellenv` after ~/.zprofile already put nvm
+      # first, and the `typeset -U path` above locks that order in place for
+      # the rest of the session (so even `nvm use` can't fix it afterward).
+      # Re-assert nvm's bin at the front here: filter it out of the unique
+      # array and re-add it, since a plain re-prepend of an already-present
+      # entry is silently dropped.
+      if [[ -n "''${NVM_BIN:-}" ]]; then
+        path=("$NVM_BIN" ''${path:#$NVM_BIN})
+      fi
     '';
     shellAliases = {
       ".." = "cd ..";
