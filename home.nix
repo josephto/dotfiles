@@ -16,6 +16,7 @@ in
     jq             # json on the command line
     lazygit
     neovim
+    tree-sitter    # builds parsers for nvim-treesitter
     # the fond everything renders in
     nerd-fonts.hack
   ];
