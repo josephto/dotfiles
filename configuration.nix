@@ -53,6 +53,7 @@
       "another-redis-desktop-manager"
       "temurin@17"
       "claude-code"
+      "opensuperwhisper"
     ];
   };
 }
