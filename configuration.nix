@@ -38,6 +38,7 @@
 
     taps = [
       { name = "mongodb/brew"; trusted = true; }
+      { name = "facebook/fb"; trusted = true; }
     ];
 
     brews = [
@@ -45,6 +46,8 @@
       "mongodb-community"
       "nvm"
       "redis"
+      "cliclick"       # macOS mouse/keyboard automation - simulator UI testing
+      "idb-companion"  # iOS Simulator control (tap/swipe) - facebook/fb tap
     ];
 
     casks = [
