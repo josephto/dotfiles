@@ -17,6 +17,8 @@ in
     lazygit
     neovim
     tree-sitter    # builds parsers for nvim-treesitter
+    gh             # GitHub CLI - PRs, issues, CI from the terminal
+    heroku         # Heroku CLI - deploys, stack management, logs
     # the fond everything renders in
     nerd-fonts.hack
   ];
