@@ -23,18 +23,31 @@
   
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, home-manager }: {
-    darwinConfigurations."macbook" = nix-darwin.lib.darwinSystem {
-      modules = [ 
-        ./configuration.nix 
-        nix-homebrew.darwinModules.nix-homebrew
-	home-manager.darwinModules.home-manager
-	{
-	  home-manager.useGlobalPkgs = true;
-	  home-manager.useUserPackages = true;
-	  home-manager.users.josephtong = import ./home.nix;
-	}
-      ];
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, home-manager }:
+    let
+      # Shared modules + hosts/<host>/{darwin,home}.nix for that machine.
+      mkHost = { host, username }: nix-darwin.lib.darwinSystem {
+        specialArgs = { inherit username; };
+        modules = [
+          ./modules/darwin.nix
+          ./hosts/${host}/darwin.nix
+          nix-homebrew.darwinModules.nix-homebrew
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            # Move pre-existing files (e.g. ~/.zshrc) aside instead of failing.
+            home-manager.backupFileExtension = "before-home-manager";
+            home-manager.extraSpecialArgs = { inherit username; };
+            home-manager.users.${username}.imports = [
+              ./modules/home.nix
+              ./hosts/${host}/home.nix
+            ];
+          }
+        ];
+      };
+    in {
+      darwinConfigurations."macbook" = mkHost { host = "personal"; username = "josephtong"; };
+      darwinConfigurations."work" = mkHost { host = "work"; username = "josephtong"; };
     };
-  };
 }

@@ -1,12 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 let
   dotfiles = "${config.home.homeDirectory}/.dotfiles";
 in
 
 {
-  home.username = "josephtong";
-  home.homeDirectory = "/Users/josephtong";
+  home.username = username;
+  home.homeDirectory = "/Users/${username}";
   home.stateVersion = "24.11";
   home.packages = with pkgs; [
     # cli i use constantly
@@ -18,21 +18,13 @@ in
     neovim
     tree-sitter    # builds parsers for nvim-treesitter
     gh             # GitHub CLI - PRs, issues, CI from the terminal
-    heroku         # Heroku CLI - deploys, stack management, logs
     # the fond everything renders in
     nerd-fonts.hack
   ];
   fonts.fontconfig.enable = true;
   home.sessionVariables = {
     EDITOR = "nvim";
-    JAVA_HOME = "/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home";
-    ANDROID_HOME = "${config.home.homeDirectory}/Library/Android/sdk";
   };
-  home.sessionPath = [
-    "/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home/bin"
-    "${config.home.homeDirectory}/Library/Android/sdk/emulator"
-    "${config.home.homeDirectory}/Library/Android/sdk/platform-tools"
-  ];
 
   programs.zsh = {
     enable = true;
@@ -90,6 +82,6 @@ in
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
   home.file.".codex/AGENTS.md".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
-  home.file.".config/opencode/AGNETS.md".source =
+  home.file.".config/opencode/AGENTS.md".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
 }
